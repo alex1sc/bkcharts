@@ -54,8 +54,8 @@ def BoxPlot(data, label=None, values=None, color=None, group=None,
         data (:ref:`userguide_charts_data_types`): the data source for the chart
         values (str, optional): the values to use for producing the boxplot using
             table-like input data
-        label (str or list(str), optional): the categorical variable to use for creating
-            separate boxes
+        label (str or list(str), mandatory): the categorical variable to use for creating
+            separate boxes (at least 2 boxes)
         color (str or list(str) or bkcharts._attributes.ColorAttr, optional): the
             categorical variable or color attribute specification to use for coloring the
             boxes.
@@ -94,6 +94,11 @@ def BoxPlot(data, label=None, values=None, color=None, group=None,
     if continuous_range and not isinstance(continuous_range, Range1d):
         raise ValueError(
             "continuous_range must be an instance of bokeh.models.ranges.Range1d"
+        )
+
+    if label is None:
+        raise ValueError(
+            "label parameter is mandatory"
         )
 
     # The continuous_range is the y_range (until we implement HBar charts)
